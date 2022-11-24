@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "639190595200",
+    "project_id": "authtest-5562c",
+    "storage_bucket": "authtest-5562c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:639190595200:android:775fe873c754a2621b5865",
+        "android_client_info": {
+          "package_name": "com.example.authentication_firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "639190595200-ur8bgs2g2ol7bms4f7iaef05p594ujjf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARiuGlM_3ukMBMjHw4UGwhhpRXPGlT2bw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "639190595200-ur8bgs2g2ol7bms4f7iaef05p594ujjf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
