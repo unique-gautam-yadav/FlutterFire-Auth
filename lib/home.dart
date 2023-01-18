@@ -1,3 +1,4 @@
+import 'package:authentication_firebase/profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -29,7 +30,16 @@ class _HomePageState extends State<HomePage> {
                 onPressed: () {
                   FirebaseAuth.instance.signOut();
                 },
-                child: const Text("Log out"))
+                child: const Text("Log out")),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const UserProfile(),
+                      ));
+                },
+                child: const Text("Navigate to profile"))
           ],
         ),
       ),
