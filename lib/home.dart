@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
             SizedBox(width: MediaQuery.of(context).size.width),
             const FlutterLogo(size: 250),
             const SizedBox(height: 20),
-            Text("Welcome, ${user.email}"),
+            Text("Welcome, ${user.displayName}"),
             const SizedBox(height: 20),
             ElevatedButton(
                 onPressed: () {

@@ -49,9 +49,10 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               children: [
                 const FlutterLogo(size: 200),
-                const Text(
+                Text(
                   "Login Page",
-                  style: TextStyle(fontSize: 45),
+                  style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width * 0.09),
                 ),
                 const SizedBox(height: 50),
                 TextFormField(
@@ -144,6 +145,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _fullName = TextEditingController();
   final _rePassword = TextEditingController();
 
   Future<void> signUp() async {
@@ -153,10 +155,19 @@ class _RegisterPageState extends State<RegisterPage> {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text("Password didn't match to Re Password")));
         } else {
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
-              email: _emailController.text, password: _passwordController.text);
+          await FirebaseAuth.instance
+              .createUserWithEmailAndPassword(
+                  email: _emailController.text,
+                  password: _passwordController.text)
+              .then(
+            (value) {
+              value.user!.updateDisplayName(_fullName.text);
+            },
+          );
+          // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context)
               .showSnackBar(const SnackBar(content: Text("Registration Done")));
+          // ignore: use_build_context_synchronously
           Navigator.of(context).pop();
         }
       }
@@ -190,7 +201,7 @@ class _RegisterPageState extends State<RegisterPage> {
             child: Column(
               children: [
                 const FlutterLogo(size: 200),
-                const Text("Registration Page", style: TextStyle(fontSize: 45)),
+                const Text("Registration Page", style: TextStyle(fontSize: 40)),
                 const SizedBox(height: 50),
                 TextFormField(
                   validator: (value) {
@@ -206,6 +217,24 @@ class _RegisterPageState extends State<RegisterPage> {
                           const EdgeInsets.only(left: 15, top: 2, bottom: 2),
                       label: const Text("Email"),
                       hintText: "Enter Your Mail Address",
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8))),
+                ),
+                const SizedBox(height: 20),
+                TextFormField(
+                  validator: (value) {
+                    if (value!.length < 3) {
+                      return "This must have at least 3 char";
+                    } else {
+                      return null;
+                    }
+                  },
+                  controller: _fullName,
+                  decoration: InputDecoration(
+                      contentPadding:
+                          const EdgeInsets.only(left: 15, top: 2, bottom: 2),
+                      label: const Text("Full Name"),
+                      hintText: "Enter Full Name",
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8))),
                 ),
@@ -230,6 +259,13 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 const SizedBox(height: 20),
                 TextFormField(
+                  validator: (value) {
+                    if (_passwordController.text != value) {
+                      return "Password didn't match";
+                    } else {
+                      return null;
+                    }
+                  },
                   controller: _rePassword,
                   decoration: InputDecoration(
                       contentPadding:
